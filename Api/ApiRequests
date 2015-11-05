@@ -1,0 +1,9 @@
+Login
+role 1 = admin
+role 2 = user
+POST  {username= "ldkadlasd", "password":"jaskldhlad"}
+return {userId= 2, token= "823483-4", role= 2};
+
+fruits
+POST {userId="slfjsdjf", token= "token"};
+return [{name="manzana", cost=239, id=3}];
