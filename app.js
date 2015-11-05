@@ -17,9 +17,15 @@ var bodyParser = require('body-parser');
 var server = require('http').createServer(app);
 require('./config/express')(app);
 // require('./routes')(app);
+//
+// // Your own super cool function
+var logger = function(req, res, next) {
+    console.log(req.originalUrl);
+    next(); // Passing the request to the next handler in the stack.
+}
 app.use( bodyParser.json());
 app.use(express.static(__dirname + '/public'));
-
+app.use(logger);
 var logincontroller = require('./Api/login/login.controller.js');
 var fruitcontroller = require('./Api/fruit/fruit.controller.js');
 
