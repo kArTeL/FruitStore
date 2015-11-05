@@ -16,10 +16,31 @@ var app = express();
 var bodyParser = require('body-parser');
 var server = require('http').createServer(app);
 require('./config/express')(app);
-require('./routes')(app);
-// app.use( express.logger() );
+// require('./routes')(app);
 app.use( bodyParser.json());
 app.use(express.static(__dirname + '/public'));
+
+var logincontroller = require('./Api/login/login.controller.js');
+var fruitcontroller = require('./Api/fruit/fruit.controller.js');
+
+// router.post('/', controller.index);
+// router.post('/buyFruits', controller.buyFruits);
+// app.get('/', routes.index);
+//
+// router.post('/', controller.index);
+// router.post('/logout', controller.logout);
+
+
+app.post('/api/fruits', fruitcontroller.index);
+app.post('/api/login', logincontroller.index);
+app.post('/api/buyFruits', fruitcontroller.buyFruits);
+app.post('/api/login/logout', logincontroller.logout);
+
+app.route('/*')
+  .get(function(req, res) {
+    res.sendfile(app.get('appPath') + '/login.html');
+  });
+
 // app.configure(function(){
 //     app.use( express.logger() );
 //     app.use( express.cookieParser() );
