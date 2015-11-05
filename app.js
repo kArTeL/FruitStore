@@ -29,7 +29,7 @@ app.use(express.static(__dirname + '/public'));
 // });
 
 // Start server
-server.listen(6080, function () {
+server.listen(6010, function () {
   console.log('Express server listening on %d, in %s mode', 6080, app.get('env'));
 
 });

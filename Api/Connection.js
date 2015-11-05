@@ -8,17 +8,17 @@ var mysql      = require('mysql');
 module.exports = {
   connection : function(callback) {
     var pool = mysql.createPool({
-      // host     : 'localhost',
-      // port : 3307,
-      // user     : 'root',
-      // password : '',
-      // database : 'fruits'
+      host     : 'localhost',
+      port : 3307,
+      user     : 'root',
+      password : '',
+      database : 'fruits'
       //
       //Production
-        host     : '127.0.0.1',
-        user     : 'usuario10',
-        password : '7yJW2Zk6b8',
-        database : 'usuario10'
+        // host     : '127.0.0.1',
+        // user     : 'usuario10',
+        // password : '7yJW2Zk6b8',
+        // database : 'usuario10'
 
     });
 

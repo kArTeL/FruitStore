@@ -16,10 +16,10 @@ $('#btnLogin').click(function(event){
        showProgress();
        //get the credentials
        var jsonCredentials = {username:$('#username').val(), password: $('#password').val()};
-
+// ~usuario10/api/login
        $.ajax({
           type: "POST",
-          url: "./api/login",
+          url: "/~usuario10/api/login",
           data: jsonCredentials,
           beforeSend: function(){
           },
