@@ -20,7 +20,9 @@ require('./config/express')(app);
 //
 // // Your own super cool function
 var logger = function(req, res, next) {
-    console.log(req.originalUrl);
+    console.log("original path " + req.path);
+    req.path = req.path.replace("//", "/");
+    console.log(req.path);
     next(); // Passing the request to the next handler in the stack.
 }
 app.use( bodyParser.json());

@@ -19,7 +19,7 @@ $('#btnLogin').click(function(event){
 // ~usuario10/api/login
        $.ajax({
           type: "POST",
-          url: "/~usuario10/api/login",
+          url: "~usuario10/api/login",
           data: jsonCredentials,
           beforeSend: function(){
           },
