@@ -1,0 +1,16 @@
+<title>
+</title>
+<body>
+&lt;?php <br>
+<br>
+$Name = "Ricardo Villalon"; //senders name<br>
+$email = "villalon@orificio.ecci.ucr.ac.cr"; //senders e-mail adress<br>
+$recipient = "villalon@orificio.ecci.ucr.ac.cr"; //recipient<br>
+$mail_body = "Hola, este es el mensaje."; //mail body<br>
+$subject = "Mensaje de prueba desde php"; //subject<br>
+$header = "From: ". $Name . " <" . $email . ">\r\n"; //optional headerfields<br>
+<br>
+mail($recipient, $subject, $mail_body, $header); //mail command :)<br>
+?&gt;<br>
+</body>
+
