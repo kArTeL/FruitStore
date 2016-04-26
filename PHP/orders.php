@@ -64,9 +64,9 @@ else {
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-				<form action="/logout">
+				<!-- <form action="/logout">
 					<input class = "navbar-text navbar-right btn btn-default closeButton" type="submit" value="Cerrar sesion">
-				</form>
+				</form> -->
         <!-- <button class="navbar-text navbar-right btn btn-default closeButton" id = "closeSessionLabel" onClick="closeSession()">Cerrar sesión </button> -->
           <p class="navbar-text navbar-right signed-in-as-paragraph" id = "usernameLabel" >Bienvenido <? echo $username ?></p>
 

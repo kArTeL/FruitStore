@@ -88,7 +88,7 @@ var placeOrderEvent = function()
          confirmButtonText: "Listo",
          closeOnConfirm: false
        }, function(){
-         window.location = "/fruits.html";
+         window.location = "./fruits.html";
          //swal("Deleted!", "Your imaginary file has been deleted.", "success");
        });
         //  deleteCookie("fruits");
@@ -132,7 +132,7 @@ var removeSession = function ()
         deleteCookie("sessionId");
         deleteCookie("cart");
         deleteCookie("username");
-         window.location = "/login.html";
+         window.location = "./login.html";
 
         },
          //Error case

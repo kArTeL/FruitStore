@@ -7,6 +7,7 @@ var jsFunction = function()
 var logout = function(userId, token)
 {
 	var redirectParams = "userId="+ userId+"&token="+token;
+  
 	window.location = "http://localhost:8888/PHP/logout.php?"+redirectParams;
 	// console.log("calling logout");
 	// console.log(userId);
@@ -17,7 +18,7 @@ var logout = function(userId, token)
  //  		data: { userId: userId, token:token }
 	// }).done(function( ) {
  //  		//alert( "Data Saved: " + msg );
-	// });    
+	// });
 }
 
 
@@ -29,6 +30,6 @@ var logout = function(userId, token)
  //  		data: { name: "John" }
 	// }).done(function( msg ) {
  //  		alert( "Data Saved: " + msg );
-	// });    
+	// });
 
 //  });

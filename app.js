@@ -20,9 +20,9 @@ require('./config/express')(app);
 //
 // // Your own super cool function
 var logger = function(req, res, next) {
-    console.log("original path " + req.path);
-    req.path = req.path.replace("//", "/");
-    console.log(req.path);
+    // console.log("original path " + req.path);
+    // req.path = req.path.replace("//", "/");
+    console.log(req.url);
     next(); // Passing the request to the next handler in the stack.
 }
 app.use( bodyParser.json());
@@ -44,9 +44,12 @@ app.post('/api/login', logincontroller.index);
 app.post('/api/buyFruits', fruitcontroller.buyFruits);
 app.post('/api/login/logout', logincontroller.logout);
 
-app.route('/*')
+app.route('*')
   .get(function(req, res) {
-    res.sendfile(app.get('appPath') + '/login.html');
+    console.log("me meti mother fucker");
+    //api/login
+    console.log("y extrañamente el url es "+ req.url);
+    res.sendfile(__dirname + 'public/login.html');
   });
 
 // app.configure(function(){

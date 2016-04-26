@@ -11,7 +11,7 @@ $token = $_GET['token'];
 $userTools = new UserTools();
 $userTools->closeSession($userId,$token);
 
-header("Location: http://127.0.0.1:6080/login.html");
+header("Location: https://192.168.122.2:6081/~usuario10/login.html");
 
 
 

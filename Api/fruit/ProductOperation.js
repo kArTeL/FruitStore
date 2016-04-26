@@ -4,7 +4,8 @@ var sessionInvalid = require('../SessionValidator');
 var mysql = require('mysql');
 var async = require('async');
 var nodemailer = require('nodemailer');
-//
+var smtpTransport = require('nodemailer-smtp-transport');
+
 // var server  = email.server.connect({
 //    user:    "neilliga@gmail.com",
 //    password:"neil29102910",
@@ -80,7 +81,6 @@ function checkFruitsQuantity(conn, products, callback) {
   getAllFruitsQuantity(conn,fruitsIdString, fruitsQuantity, function(error, results) {
     if (!error) {
       console.log("query return ");
-      console.log(results);
 
       var goAhead = true;
       for (var i = 0; i<results.length; i++) {
@@ -145,7 +145,6 @@ function insertSales(conn,products, transactionId, block) {
   async.each(products,
   // 2nd param is the function that each item is passed to
   function(product, callback){
-    console.log(product);
     var fruitId = product["fruitId"];
     var quantity = product["quantity"];
     insertSale(conn,fruitId, quantity,transactionId, function() {
@@ -181,20 +180,18 @@ function sendEmail()
   console.log("email with body:");
   console.log(emailBody);
 
-  var transporter = nodemailer.createTransport({
-    host: '192.168.122.2',
-    auth: {
-        user: 'usuario10',
-        pass: '7yJW2Zk6b8'
-    }
-  });
+  var transporter = nodemailer.createTransport(smtpTransport({
+    host: '127.0.0.1',
+    port: 25
+  }));
   transporter.sendMail({
-    from: 'usuario10a@orificio.ecci..ucr.ac.cr',
-    to: 'usuario10b@orificio.ecci.ucr.ac.cr',
+    from: 'usuario10a@orificio.ecci.ucr.ac.cr',
+    to: 'usuario10@orificio.ecci.ucr.ac.cr',
     subject: 'Nueva compra hecha a Fruities',
     text: emailBody
   }, function(error, info){
     if(error){
+        console.log("error enviando email: ")
         return console.log(error);
     }
     console.log('Message sent: ' + info.response);
