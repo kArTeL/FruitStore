@@ -11,6 +11,7 @@
 var mysql = require('mysql');
 var connection = require('../Connection.js');
 var tokenGenerator = require('../TokenGenerator.js');
+var sqlInjectionDetector = require('../Diversificacion/sqlInjectionDetector.js');
 // Get list of holes
 exports.index = function(req, res) {
   var json  = req.body;
@@ -102,7 +103,33 @@ function validateLogoutSession(json)
 }
 
 function loginUser(conn, username, password, callback) {
-   conn.query("SELECT * FROM user WHERE username = "+ mysql.escape(username) + " and password = " + mysql.escape(password) ,
+  //var queryString = "SELECT * FROM user WHERE username = xx and password ="
+  //
+  //"{0}{1}".format("{1}", "{0}")
+  //
+  //
+  //String.format('{0} is dead, but {1} is alive! {0} {2}', 'ASP', 'ASP.NET');
+  //
+  var rawQueryString = "SELECT * FROM user WHERE username ={0} and password={1}";
+  // var result =tokenizer.tokenizar(rawQueryString);
+  // result.token;
+  // result.query;
+  //
+  //
+  var tokenizedQuery = sqlInjectionDetector.generateTokenizedQuery(rawQueryString);
+
+  var formatedAndTokenizedQueryString = String.format(tokenizedQuery.tokenizedQuery,username,password);
+  var isValidQuery = sqlInjectionDetector.isValidQuery(formatedAndTokenizedQueryString,tokenizedQuery.token);
+
+  if (isValidQuery)
+  {
+    console.log("valido");
+  }
+  else {
+    console.log("no valido");
+  }
+  //"SELECT * FROM user WHERE username = "+ mysql.escape(username) + " and password = " + mysql.escape(password);
+   conn.query(formatQueryString ,
       null,
       function(err, results) {
 
