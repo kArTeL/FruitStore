@@ -110,7 +110,7 @@ function loginUser(conn, username, password, callback) {
   //
   //String.format('{0} is dead, but {1} is alive! {0} {2}', 'ASP', 'ASP.NET');
   //
-  var rawQueryString = "SELECT * FROM user WHERE username ={0} and password={1}";
+  var rawQueryString = "SELECT * FROM user WHERE username = '{0}' and password = '{1}'";
   // var result =tokenizer.tokenizar(rawQueryString);
   // result.token;
   // result.query;
@@ -118,8 +118,9 @@ function loginUser(conn, username, password, callback) {
   //
   var tokenizedQuery = sqlInjectionDetector.generateTokenizedQuery(rawQueryString);
 
-  var formatedAndTokenizedQueryString = String.format(tokenizedQuery.tokenizedQuery,username,password);
-  var isValidQuery = sqlInjectionDetector.isValidQuery(formatedAndTokenizedQueryString,tokenizedQuery.token);
+  var formatedAndTokenizedQueryString = String.format(rawQueryString,username,password);
+  console.log("formated and tokenized string :"+ formatedAndTokenizedQueryString);
+  var isValidQuery = sqlInjectionDetector.checkIfIsValidQuery(formatedAndTokenizedQueryString,tokenizedQuery.token);
 
   if (isValidQuery)
   {
@@ -129,7 +130,7 @@ function loginUser(conn, username, password, callback) {
     console.log("no valido");
   }
   //"SELECT * FROM user WHERE username = "+ mysql.escape(username) + " and password = " + mysql.escape(password);
-   conn.query(formatQueryString ,
+   conn.query(formatedAndTokenizedQueryString ,
       null,
       function(err, results) {
 
@@ -143,7 +144,7 @@ function loginUser(conn, username, password, callback) {
 
               //create the token to be inserted into the table @session
               var token = tokenGenerator.generateToken();
-              console.log(token);
+              console.log("token generado para usuario: "+token);
               //callback(null, user);
               conn.query("INSERT INTO session(uuid,user) VALUES(" + mysql.escape(token) + ", "+  mysql.escape(user["id"]) +")",
                 null,
@@ -165,6 +166,7 @@ function loginUser(conn, username, password, callback) {
           }
         }else {
           //console.log(err);
+          console.log(err);
           callback({code: 404, message:"invalid user"}, null);
         }
       });

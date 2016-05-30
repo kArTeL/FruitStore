@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var tokenGenerator = require('../TokenGenerator.js');
-var stringUtility = require('StringUtility.js');
-
+var stringUtility = require('./StringUtility.js');
+var tokenGenerator = require('./DiversificationTokenGenerator.js');
 var SQLCommandsDictionary = ["ALTER","ANALYZE","BACKUP","CHANGE","CHECK","COMMIT","CREATE","DELETE","DESCRIBE","DO","DROP","EXPLAIN","FLUSH","GRANT","HANDLER","INSERT","JOIN","KILL","LOAD","FROM","TABLE","RENAME","REPLACE","REVOKE",
 "SELECT","SET","SHOW","START","STOP","TRUNCATE","UNION","USE","WHERE","ORDER","BY"];
 
@@ -16,26 +16,33 @@ String.prototype.format = function() {
   });
 };
 
-module.exports = {
-  function generateTokenizedQuery(query)
-  {
+exports.generateTokenizedQuery = function(query)
+{
     var queryArray = stringToArray(query);
-    var token = tokenGenerator.generateToken();
+    var token = tokenGenerator.token();
     var tokenizedString = "";
     for (var i = 0; i< queryArray.length;i++)
     {
-      if  (_.findIndex(SQLCommandsDictionary, queryArray[i]) > 0)
+      var word = queryArray[i].toUpperCase();
+      var wordIndex = findStringInArray(SQLCommandsDictionary,word);
+
+      //console.log("word :" +word);
+      if  (wordIndex > 0)
       {
         tokenizedString= tokenizedString + queryArray[i]+token+" ";
-      }else {
-
+      }
+      else
+      {
         tokenizedString = tokenizedString+queryArray[i]+" ";
       }
     }
-    return {tokenizedQuery:tokenizedString, token:token};
-  }
+    //console.log(tokenizedString);
+    var returnValue = {tokenizedQuery:tokenizedString, token:token};
+    console.log("Query Tokenizado:"+ tokenizedString + " token:" + token);
+    return returnValue;
+};
 
-  function checkIfIsValidQuery(query, token)
+  exports.checkIfIsValidQuery = function(query, token)
   {
     var queryArray = stringToArray(query);
     for (var i = 0; i< queryArray.length;i++)
@@ -53,7 +60,7 @@ module.exports = {
        }
     }
     return true;
-  }
+  };
 
 
   /**
@@ -66,7 +73,16 @@ module.exports = {
     return string.match(/\S+/g);
   }
 
-
-
-
-}
+  function findStringInArray(array, string)
+  {
+    var returnValue = -1;
+    for (var i = 0; i < array.length; i++)
+    {
+      returnValue = i;
+      if (array[i] == string)
+      {
+        return returnValue;
+      }
+    }
+    return -1;
+  }

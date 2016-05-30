@@ -19,42 +19,42 @@ INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario14b","usuario14b","usuario14b@orificio.ecci.ucr.ac.cr", "Residencia de usuario14b", 1);
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario18a","usuario18a","usuario18a@orificio.ecci.ucr.ac.cr", "Residencia de usuario18a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario18b","usuario18b","usuario18b@orificio.ecci.ucr.ac.cr", "Residencia de usuario18b", 1);	
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario18b","usuario18b","usuario18b@orificio.ecci.ucr.ac.cr", "Residencia de usuario18b", 1);
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario21a","usuario21a","usuario21a@orificio.ecci.ucr.ac.cr", "Residencia de usuario21a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario21b","usuario21b","usuario21b@orificio.ecci.ucr.ac.cr", "Residencia de usuario21b", 1);	
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario21b","usuario21b","usuario21b@orificio.ecci.ucr.ac.cr", "Residencia de usuario21b", 1);
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario25a","usuario25a","usuario18a@orificio.ecci.ucr.ac.cr", "Residencia de usuario25a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario25b","usuario25b","usuario25b@orificio.ecci.ucr.ac.cr", "Residencia de usuario25b", 1);	
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario25b","usuario25b","usuario25b@orificio.ecci.ucr.ac.cr", "Residencia de usuario25b", 1);
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario16a","usuario16a","usuario16a@orificio.ecci.ucr.ac.cr", "Residencia de usuario16a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario16b","usuario16b","usuario16b@orificio.ecci.ucr.ac.cr", "Residencia de usuario16b", 1);	
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario16b","usuario16b","usuario16b@orificio.ecci.ucr.ac.cr", "Residencia de usuario16b", 1);
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario20a","usuario20a","usuario20a@orificio.ecci.ucr.ac.cr", "Residencia de usuario20a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario20b","usuario20b","usuario20b@orificio.ecci.ucr.ac.cr", "Residencia de usuario20b", 1);	
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario20b","usuario20b","usuario20b@orificio.ecci.ucr.ac.cr", "Residencia de usuario20b", 1);
 
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario11a","usuario11a","usuario11a@orificio.ecci.ucr.ac.cr", "Residencia de usuario11a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario11b","usuario11b","usuario11b@orificio.ecci.ucr.ac.cr", "Residencia de usuario11b", 1);	
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario11b","usuario11b","usuario11b@orificio.ecci.ucr.ac.cr", "Residencia de usuario11b", 1);
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario28a","usuario28a","usuario28a@orificio.ecci.ucr.ac.cr", "Residencia de usuario28a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario28b","usuario28b","usuario28b@orificio.ecci.ucr.ac.cr", "Residencia de usuario28b", 1);	
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario28b","usuario28b","usuario28b@orificio.ecci.ucr.ac.cr", "Residencia de usuario28b", 1);
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario24a","usuario24a","usuario24a@orificio.ecci.ucr.ac.cr", "Residencia de usuario24a", 1);
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario24b","usuario16b","usuario24b@orificio.ecci.ucr.ac.cr", "Residencia de usuario24b", 1);
 
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario13a","usuario13a","usuario13a@orificio.ecci.ucr.ac.cr", "Residencia de usuario13a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario13b","usuario13b","usuario13b@orificio.ecci.ucr.ac.cr", "Residencia de usuario13b", 1);	
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario13b","usuario13b","usuario13b@orificio.ecci.ucr.ac.cr", "Residencia de usuario13b", 1);
 
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario15a","usuario15a","usuario15a@orificio.ecci.ucr.ac.cr", "Residencia de usuario15a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario15b","usuario15b","usuario15b@orificio.ecci.ucr.ac.cr", "Residencia de usuario15b", 1);	
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario15b","usuario15b","usuario15b@orificio.ecci.ucr.ac.cr", "Residencia de usuario15b", 1);
 
 
 INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario17a","usuario17a","usuario17a@orificio.ecci.ucr.ac.cr", "Residencia de usuario17a", 1);
-INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario17b","usuario17b","usuario17b@orificio.ecci.ucr.ac.cr", "Residencia de usuario17b", 1);	
-]
+INSERT INTO user (username,password,email,delivery_address,role) VALUES("usuario17b","usuario17b","usuario17b@orificio.ecci.ucr.ac.cr", "Residencia de usuario17b", 1);
+
 
 -- Create a valid session
 INSERT INTO session(uuid,user) VALUES("23140328424",1);
