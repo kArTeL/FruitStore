@@ -148,7 +148,7 @@ function loginUser(conn, username, password, callback) {
           if (results.length != 0) {
               var user = results[0];
               // console.log("usuario");
-               console.log("inyectado");
+              console.log("inyectado");
 
               //create the token to be inserted into the table @session
               var token = tokenGenerator.generateToken();
