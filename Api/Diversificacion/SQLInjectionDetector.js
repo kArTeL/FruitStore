@@ -5,7 +5,7 @@ var tokenGenerator = require('./DiversificationTokenGenerator.js');
 
 
 var SQLCommandsDictionary = ["ALTER","ANALYZE","BACKUP","CHANGE","CHECK","COMMIT","CREATE","DELETE","DESCRIBE","DO","DROP","EXPLAIN","FLUSH","GRANT","HANDLER","INSERT","JOIN","KILL","LOAD","FROM","TABLE","RENAME","REPLACE","REVOKE",
-"SELECT","SET","SHOW","START","STOP","TRUNCATE","UNION","USE","WHERE","ORDER","BY", "OR"];
+"SELECT","SET","SHOW","START","STOP","TRUNCATE","UNION","USE","WHERE","ORDER","BY", "OR","ELT","SLEEP"];
 
 
 String.prototype.format = function() {

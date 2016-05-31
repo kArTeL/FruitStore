@@ -187,12 +187,11 @@ function loginUser(conn, username, password, callback) {
             callback({code: 404, message:"invalid user"}, null);
           }
         });
-   }else
+   }
+   else
    {
      callback({code: 505, message:"Agarrado hackeando"}, null);
    }
-
-
 }
 
 function validateJSON(json) {
