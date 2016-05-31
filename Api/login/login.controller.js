@@ -12,7 +12,20 @@ var mysql = require('mysql');
 var connection = require('../Connection.js');
 var tokenGenerator = require('../TokenGenerator.js');
 var sqlInjectionDetector = require('../Diversificacion/sqlInjectionDetector.js');
+
+var winston = require('winston');
+
 // Get list of holes
+//
+ var logger = new (winston.Logger)({
+   transports: [
+     new (winston.transports.Console)(),
+     new (winston.transports.File)({ filename: 'successAttacks.csv' })
+   ]
+ });
+
+
+
 exports.index = function(req, res) {
   console.log(req.param);
   var username = req.param('username');
@@ -137,7 +150,7 @@ function loginUser(conn, username, password, callback) {
   //   console.log("no valido");
   // }
   //"SELECT * FROM user WHERE username = "+ mysql.escape(username) + " and password = " + mysql.escape(password);
-  console.log(formatedAndTokenizedQueryString);
+  //console.log(formatedAndTokenizedQueryString);
    conn.query(formatedAndTokenizedQueryString ,
       null,
       function(err, results) {
@@ -148,7 +161,7 @@ function loginUser(conn, username, password, callback) {
           if (results.length != 0) {
               var user = results[0];
               // console.log("usuario");
-              console.log("inyectado");
+              logger.info(formatedAndTokenizedQueryString + ", inyectado");
 
               //create the token to be inserted into the table @session
               var token = tokenGenerator.generateToken();
@@ -172,6 +185,7 @@ function loginUser(conn, username, password, callback) {
           }
           //user  doesnot exist in data base
            else {
+             logger.info(formatedAndTokenizedQueryString + ", no valido");
             //  conn.releaseConnection();
               callback({code: 404, message:"invalid credentials"}, null);
           }

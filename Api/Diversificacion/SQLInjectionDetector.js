@@ -2,6 +2,8 @@ var _ = require('lodash');
 var tokenGenerator = require('../TokenGenerator.js');
 var stringUtility = require('./StringUtility.js');
 var tokenGenerator = require('./DiversificationTokenGenerator.js');
+
+
 var SQLCommandsDictionary = ["ALTER","ANALYZE","BACKUP","CHANGE","CHECK","COMMIT","CREATE","DELETE","DESCRIBE","DO","DROP","EXPLAIN","FLUSH","GRANT","HANDLER","INSERT","JOIN","KILL","LOAD","FROM","TABLE","RENAME","REPLACE","REVOKE",
 "SELECT","SET","SHOW","START","STOP","TRUNCATE","UNION","USE","WHERE","ORDER","BY"];
 
