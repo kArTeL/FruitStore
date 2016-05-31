@@ -4,28 +4,26 @@
  */
 
 var mysql      = require('mysql');
+var pool = mysql.createPool({
+  host     : 'localhost',
+  port : 3306,
+  user     : 'root',
+  password : 'root',
+  database : 'fruits'
+  //
+  //Production
+    // host     : '127.0.0.1',
+    // user     : 'usuario10',
+    // password : '7yJW2Zk6b8',
+    // database : 'usuario10'
 
-module.exports = {
-  connection : function(callback) {
-    var pool = mysql.createPool({
-      host     : 'localhost',
-      port : 3306,
-      user     : 'root',
-      password : 'root',
-      database : 'fruits'
-      //
-      //Production
-        // host     : '127.0.0.1',
-        // user     : 'usuario10',
-        // password : '7yJW2Zk6b8',
-        // database : 'usuario10'
-
-    });
-
-
+});
+var connect;
+exports.connection = function (callback) {
     pool.getConnection(function(err, conn) {
       if (!err)
       {
+        connect = conn;
         callback(undefined, conn)
         console.log("connection success");
         //console.log(conn);
@@ -47,8 +45,11 @@ module.exports = {
       }
 
     });
-  }
 };
+
+exports.releaseConnection = function() {
+  connect.release();
+}
 
 // function connection(pool, erro) {
 //

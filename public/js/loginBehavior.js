@@ -20,11 +20,10 @@ $('#btnLogin').click(function(event){
 //
 //
 //
-  var getUrl = '/api/login?username'+jsonCredentials.username + '&password='+jsonCredentials.password;
+  var getUrl = '/api/login?username='+jsonCredentials.username + '&password='+jsonCredentials.password;
        $.ajax({
           type: "GET",
           url: getUrl,
-          data: jsonCredentials,
           beforeSend: function(){
           },
 
@@ -48,7 +47,7 @@ $('#btnLogin').click(function(event){
              }
              else if (data.role == 1){
                var redirectParams = "username=" + $('#username').val() + "&userId="+data.userId+ "&token="+data.token;
-               window.location = "http://127.0.0.1:7080/~usuario10/PHP/orders.php?"+redirectParams;
+               window.location = "http://localhost/orders.php?"+redirectParams;
              }
           },
           //Error case

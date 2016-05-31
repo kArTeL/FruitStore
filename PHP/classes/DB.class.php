@@ -6,9 +6,9 @@ class DB {
 	// protected $db_pass = '';
 	// protected $db_host = '127.0.0.1';
 
-	protected $db_name = 'usuario10';
-	protected $db_user = 'usuario10';
-	protected $db_pass = '7yJW2Zk6b8';
+	protected $db_name = 'fruits';
+	protected $db_user = 'root';
+	protected $db_pass = 'root';
 	protected $db_host = '127.0.0.1';
 
 	//

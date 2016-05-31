@@ -31,7 +31,7 @@ exports.index = function(req, res) {
         console.log("connection is not null we can use this");
         loginUser(conn, username, password, function (error, credential) {
           // end the connection
-          conn.end(function(err){
+          conn.release(function(err){
            //  console.log("error disconnecting the connection");
            //  console.log(err);
           });
@@ -148,11 +148,11 @@ function loginUser(conn, username, password, callback) {
           if (results.length != 0) {
               var user = results[0];
               // console.log("usuario");
-              // console.log(user);
+               console.log("inyectado");
 
               //create the token to be inserted into the table @session
               var token = tokenGenerator.generateToken();
-              console.log("token generado para usuario: "+token);
+              //console.log("token generado para usuario: "+token);
               //callback(null, user);
               conn.query("INSERT INTO session(uuid,user) VALUES(" + mysql.escape(token) + ", "+  mysql.escape(user["id"]) +")",
                 null,
@@ -160,8 +160,10 @@ function loginUser(conn, username, password, callback) {
                   if(!err) {
                     var credential = {token:token, userId:user["id"], role:user["role"]};
                     callback(null, credential);
+                  //  conn.releaseConnection();
                   } else {
-                    //console.log(err);
+                  //  conn.releaseConnection();
+                    //conn.release();
                     callback({code: 500, message:"Internal server error"}, null);
                   }
 
@@ -170,11 +172,13 @@ function loginUser(conn, username, password, callback) {
           }
           //user  doesnot exist in data base
            else {
+            //  conn.releaseConnection();
               callback({code: 404, message:"invalid credentials"}, null);
           }
         }else {
           //console.log(err);
           //console.log(err);
+        //  conn.releaseConnection();
           callback({code: 404, message:"invalid user"}, null);
         }
       });
