@@ -1,0 +1,1 @@
+./sqlmap.py -u "http://localhost:6010/api/login?username=user&password=*" -p password --level=3 --risk=3 --ignore-401 --dbms=MySQL

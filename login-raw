@@ -1,0 +1,10 @@
+POST http:localhost:6010/api/login HTTP/1.1
+Host: localhost:6010
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: 4c732621-6b97-b519-f563-78ef4bfb0620
+
+{
+    "username":"user",
+    "password":"29102910"
+}
