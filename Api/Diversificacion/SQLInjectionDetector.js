@@ -5,7 +5,7 @@ var tokenGenerator = require('./DiversificationTokenGenerator.js');
 
 
 var SQLCommandsDictionary = ["ALTER","ANALYZE","BACKUP","CHANGE","CHECK","COMMIT","CREATE","DELETE","DESCRIBE","DO","DROP","EXPLAIN","FLUSH","GRANT","HANDLER","INSERT","JOIN","KILL","LOAD","FROM","TABLE","RENAME","REPLACE","REVOKE",
-"SELECT","SET","SHOW","START","STOP","TRUNCATE","UNION","USE","WHERE","ORDER","BY"];
+"SELECT","SET","SHOW","START","STOP","TRUNCATE","UNION","USE","WHERE","ORDER","BY", "OR"];
 
 
 String.prototype.format = function() {
@@ -40,27 +40,30 @@ exports.generateTokenizedQuery = function(query)
     }
     //console.log(tokenizedString);
     var returnValue = {tokenizedQuery:tokenizedString, token:token};
-    console.log("Query Tokenizado:"+ tokenizedString + " token:" + token);
+    //console.log("Query Tokenizado:"+ tokenizedString + " token:" + token);
     return returnValue;
 };
 
   exports.checkIfIsValidQuery = function(query, token)
   {
     var queryArray = stringToArray(query);
+    //console.log(queryArray);
     for (var i = 0; i< queryArray.length;i++)
     {
        var tokenStartPosition = queryArray[i].indexOf(token);
 
        //If is not a tokenized command or string;
-       if (tokenStartPosition > -1)
+       if (tokenStartPosition < 0)
        {
+         //console.log("no tiene token la pakabra: "+queryArray[i] );
          //Check if this command should be tokenized, if should return false, because is a invalid (SQL injected) query.
-         if  (_.findIndex(SQLCommandsDictionary, queryArray[i]) > 0)
+         if  (findStringInArray(SQLCommandsDictionary, queryArray[i]) > 0)
          {
            return false;
          }
        }
     }
+    console.log("es valido");
     return true;
   };
 
