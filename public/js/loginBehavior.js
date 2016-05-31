@@ -17,9 +17,13 @@ $('#btnLogin').click(function(event){
        //get the credentials
        var jsonCredentials = {username:$('#username').val(), password: $('#password').val()};
 // ~usuario10/api/login
+//
+//
+//
+  var getUrl = '/api/login?username'+jsonCredentials.username + '&password='+jsonCredentials.password;
        $.ajax({
-          type: "POST",
-          url: '/api/login',
+          type: "GET",
+          url: getUrl,
           data: jsonCredentials,
           beforeSend: function(){
           },

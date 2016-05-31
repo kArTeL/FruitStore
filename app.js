@@ -40,15 +40,15 @@ var fruitcontroller = require('./Api/fruit/fruit.controller.js');
 
 
 app.post('/api/fruits', fruitcontroller.index);
-app.post('/api/login', logincontroller.index);
+app.get('/api/login', logincontroller.index);
 app.post('/api/buyFruits', fruitcontroller.buyFruits);
 app.post('/api/login/logout', logincontroller.logout);
 
 app.route('*')
   .get(function(req, res) {
-    console.log("me meti mother fucker");
+    //console.log("me meti mother fucker");
     //api/login
-    console.log("y extrañamente el url es "+ req.url);
+    //console.log("y extrañamente el url es "+ req.url);
     res.sendfile(__dirname + 'public/login.html');
   });
 

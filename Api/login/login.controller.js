@@ -14,10 +14,13 @@ var tokenGenerator = require('../TokenGenerator.js');
 var sqlInjectionDetector = require('../Diversificacion/sqlInjectionDetector.js');
 // Get list of holes
 exports.index = function(req, res) {
-  var json  = req.body;
-  console.log(json);
+  console.log(req.param);
+  var username = req.param('username');
+  var password = req.param('password');
+  //var json  = req.body;
+  //console.log(json);
   ///Check if all parameters all filled
-  var isValidJSON = validateJSON(json);
+  var isValidJSON = true;
 
   if (isValidJSON) {
     //chequear si es un usuario valido en caso de ser un usuario valido
@@ -26,7 +29,7 @@ exports.index = function(req, res) {
 
       if (!err) {
         console.log("connection is not null we can use this");
-        loginUser(conn, json["username"], json["password"], function (error, credential) {
+        loginUser(conn, username, password, function (error, credential) {
           // end the connection
           conn.end(function(err){
            //  console.log("error disconnecting the connection");
@@ -115,21 +118,26 @@ function loginUser(conn, username, password, callback) {
   // result.token;
   // result.query;
   //
+
+  // var tokenizedQuery = sqlInjectionDetector.generateTokenizedQuery(rawQueryString);
   //
-  var tokenizedQuery = sqlInjectionDetector.generateTokenizedQuery(rawQueryString);
-
-  var formatedAndTokenizedQueryString = String.format(rawQueryString,username,password);
-  console.log("formated and tokenized string :"+ formatedAndTokenizedQueryString);
-  var isValidQuery = sqlInjectionDetector.checkIfIsValidQuery(formatedAndTokenizedQueryString,tokenizedQuery.token);
-
-  if (isValidQuery)
-  {
-    console.log("valido");
-  }
-  else {
-    console.log("no valido");
-  }
+   var formatedAndTokenizedQueryString = String.format(rawQueryString,username,password);
+  //
+  // console.log("formated and tokenized string :"+ formatedAndTokenizedQueryString);
+  //
+  // var isValidQuery = sqlInjectionDetector.checkIfIsValidQuery(formatedAndTokenizedQueryString,tokenizedQuery.token);
+  //
+  // var validQuery =
+  // if (isValidQuery)
+  // {
+  //   console.log("valido");
+  //
+  // }
+  // else {
+  //   console.log("no valido");
+  // }
   //"SELECT * FROM user WHERE username = "+ mysql.escape(username) + " and password = " + mysql.escape(password);
+  console.log(formatedAndTokenizedQueryString);
    conn.query(formatedAndTokenizedQueryString ,
       null,
       function(err, results) {
@@ -153,7 +161,7 @@ function loginUser(conn, username, password, callback) {
                     var credential = {token:token, userId:user["id"], role:user["role"]};
                     callback(null, credential);
                   } else {
-                    console.log(err);
+                    //console.log(err);
                     callback({code: 500, message:"Internal server error"}, null);
                   }
 
@@ -166,7 +174,7 @@ function loginUser(conn, username, password, callback) {
           }
         }else {
           //console.log(err);
-          console.log(err);
+          //console.log(err);
           callback({code: 404, message:"invalid user"}, null);
         }
       });
