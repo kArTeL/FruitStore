@@ -11,7 +11,7 @@
 var mysql = require('mysql');
 var connection = require('../Connection.js');
 var tokenGenerator = require('../TokenGenerator.js');
-var sqlInjectionDetector = require('../Diversificacion/sqlInjectionDetector.js');
+var sqlInjectionDetector = require('../Diversificacion/SQLInjectionDetector.js');
 
 var winston = require('winston');
 
