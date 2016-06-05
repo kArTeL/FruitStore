@@ -126,72 +126,79 @@ function loginUser(conn, username, password, callback) {
   //
   //String.format('{0} is dead, but {1} is alive! {0} {2}', 'ASP', 'ASP.NET');
   //
-  var rawQueryString = "SELECT * FROM user WHERE username = '{0}' and password = '{1}'";
-  // var result =tokenizer.tokenizar(rawQueryString);
-  // result.token;
-  // result.query;
-  //
-//var returnValue = {tokenizedQuery:tokenizedString, token:token};
-   var tokenizedResult = sqlInjectionDetector.generateTokenizedQuery(rawQueryString);
-  //
-   var formatedAndTokenizedQueryString = String.format(tokenizedResult.tokenizedQuery,username,password);
-  //
-  // console.log("formated and tokenized string :"+ formatedAndTokenizedQueryString);
-  //
-   var isValidQuery = sqlInjectionDetector.checkIfIsValidQuery(formatedAndTokenizedQueryString,tokenizedResult.token);
+  if (username && password )
+  {
+    var rawQueryString = "SELECT * FROM user WHERE username = '{0}' and password = '{1}'";
+    // var result =tokenizer.tokenizar(rawQueryString);
+    // result.token;
+    // result.query;
+    //
+  //var returnValue = {tokenizedQuery:tokenizedString, token:token};
+     var tokenizedResult = sqlInjectionDetector.generateTokenizedQuery(rawQueryString);
+    //
+     var formatedAndTokenizedQueryString = String.format(tokenizedResult.tokenizedQuery,username,password);
+    //
+    // console.log("formated and tokenized string :"+ formatedAndTokenizedQueryString);
+    //
+     var isValidQuery = sqlInjectionDetector.checkIfIsValidQuery(formatedAndTokenizedQueryString,tokenizedResult.token);
 
-   if (isValidQuery)
-   {
-     conn.query(String.format(rawQueryString,username,password) ,
-        null,
-        function(err, results) {
+     if (isValidQuery)
+     {
+       conn.query(String.format(rawQueryString,username,password) ,
+          null,
+          function(err, results) {
 
-          //there's not error
-          if (!err) {
-            //user  exist in data base
-            if (results.length != 0) {
-                var user = results[0];
-                // console.log("usuario");
-                logger.info(formatedAndTokenizedQueryString + ", inyectado");
+            //there's not error
+            if (!err) {
+              //user  exist in data base
+              if (results.length != 0) {
+                  var user = results[0];
+                  // console.log("usuario");
+                  logger.info(formatedAndTokenizedQueryString + ", inyectado");
 
-                //create the token to be inserted into the table @session
-                var token = tokenGenerator.generateToken();
-                //console.log("token generado para usuario: "+token);
-                //callback(null, user);
-                conn.query("INSERT INTO session(uuid,user) VALUES(" + mysql.escape(token) + ", "+  mysql.escape(user["id"]) +")",
-                  null,
-                  function(err, session) {
-                    if(!err) {
-                      var credential = {token:token, userId:user["id"], role:user["role"]};
-                      callback(null, credential);
-                    //  conn.releaseConnection();
-                    } else {
-                    //  conn.releaseConnection();
-                      //conn.release();
-                      callback({code: 500, message:"Internal server error"}, null);
+                  //create the token to be inserted into the table @session
+                  var token = tokenGenerator.generateToken();
+                  //console.log("token generado para usuario: "+token);
+                  //callback(null, user);
+                  conn.query("INSERT INTO session(uuid,user) VALUES(" + mysql.escape(token) + ", "+  mysql.escape(user["id"]) +")",
+                    null,
+                    function(err, session) {
+                      if(!err) {
+                        var credential = {token:token, userId:user["id"], role:user["role"]};
+                        callback(null, credential);
+                      //  conn.releaseConnection();
+                      } else {
+                      //  conn.releaseConnection();
+                        //conn.release();
+                        callback({code: 500, message:"Internal server error"}, null);
+                      }
+
                     }
+                  );
+              }
+              //user  doesnot exist in data base
+               else {
+                 logger.info(formatedAndTokenizedQueryString + ", no valido");
+                //  conn.releaseConnection();
+                  callback({code: 404, message:"invalid credentials"}, null);
+              }
+            }else {
+              //console.log(err);
+              //console.log(err);
+            //  conn.releaseConnection();
+              callback({code: 404, message:"invalid user"}, null);
+            }
+          });
+     }
+     else
+     {
+       callback({code: 505, message:"Agarrado hackeando"}, null);
+     }
+  }
+  else {
+    callback({code: 505, message:"Agarrado hackeando"}, null);
+  }
 
-                  }
-                );
-            }
-            //user  doesnot exist in data base
-             else {
-               logger.info(formatedAndTokenizedQueryString + ", no valido");
-              //  conn.releaseConnection();
-                callback({code: 404, message:"invalid credentials"}, null);
-            }
-          }else {
-            //console.log(err);
-            //console.log(err);
-          //  conn.releaseConnection();
-            callback({code: 404, message:"invalid user"}, null);
-          }
-        });
-   }
-   else
-   {
-     callback({code: 505, message:"Agarrado hackeando"}, null);
-   }
 }
 
 function validateJSON(json) {

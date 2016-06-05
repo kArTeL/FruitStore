@@ -5,7 +5,7 @@ var tokenGenerator = require('./DiversificationTokenGenerator.js');
 
 
 var SQLCommandsDictionary = ["ALTER","ANALYZE","BACKUP","CHANGE","CHECK","COMMIT","CREATE","DELETE","DESCRIBE","DO","DROP","EXPLAIN","FLUSH","GRANT","HANDLER","INSERT","JOIN","KILL","LOAD","FROM","TABLE","RENAME","REPLACE","REVOKE",
-"SELECT","SET","SHOW","START","STOP","TRUNCATE","UNION","USE","WHERE","ORDER","BY", "OR","ELT","SLEEP"];
+"SELECT","SET","SHOW","START","STOP","TRUNCATE","UNION","USE","WHERE","ORDER","BY", "OR","ELT","SLEEP","AND", "BENCHMARK","MD5"];
 
 
 String.prototype.format = function() {
@@ -47,7 +47,6 @@ exports.generateTokenizedQuery = function(query)
   exports.checkIfIsValidQuery = function(query, token)
   {
     var queryArray = stringToArray(query);
-    //console.log(queryArray);
     for (var i = 0; i< queryArray.length;i++)
     {
        var tokenStartPosition = queryArray[i].indexOf(token);
