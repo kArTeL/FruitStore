@@ -6,15 +6,15 @@ var mysql = require('mysql');
 var sqlInjectionDetector = require('./Diversificacion/SQLInjectionDetector.js');
 
 module.exports = {
-  validateSession: function (connection, json, formatedAndTokenizedQueryString, callback) {
+  validateSession: function (connection, json, formattedQuery, callback) {
     if (validateJSON(json)) {
       var token = json['token'];
       var userId = json['userId'];
 
       var rawQueryString = "SELECT s1.id FROM session s1 WHERE s1.uuid = '{0}' and s1.user = (SELECT u1.id FROM user u1 WHERE u1.id = {1} LIMIT 1) and s1.expirationDate > NOW() and s1.enabled = 1";
       var tokenizedResult = sqlInjectionDetector.generateTokenizedQuery(rawQueryString);
-      formatedAndTokenizedQueryString = String.format(tokenizedResult.tokenizedQuery, token, userId);
-      var isValidQuery = sqlInjectionDetector.checkIfIsValidQuery(formatedAndTokenizedQueryString, tokenizedResult.token);
+      formattedQuery.formatedAndTokenizedQueryString = String.format(tokenizedResult.tokenizedQuery, token, userId);
+      var isValidQuery = sqlInjectionDetector.checkIfIsValidQuery(formattedQuery.formatedAndTokenizedQueryString, tokenizedResult.token);
         
       if (isValidQuery) {
         connection.query(String.format(rawQueryString, token, userId),

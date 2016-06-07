@@ -42,7 +42,7 @@ var fruitcontroller = require('./Api/fruit/fruit.controller.js');
 app.get('/api/fruits', fruitcontroller.index);
 app.get('/api/login', logincontroller.index);
 app.post('/api/buyFruits', fruitcontroller.buyFruits);
-app.post('/api/login/logout', logincontroller.logout);
+app.get('/api/login/logout', logincontroller.logout);
 
 app.route('*')
   .get(function(req, res) {

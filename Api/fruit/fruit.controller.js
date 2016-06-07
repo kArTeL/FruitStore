@@ -24,11 +24,11 @@ exports.index = function (req, res) {
     var json = { "token": req.param('token'), "userId": req.param('userId') };
     if (!err) {
       //check if the session is valid, this check the expirationDate, username,password,token
-      var formatedAndTokenizedQueryString = "";
-      sessionValidator.validateSession(conn, json, formatedAndTokenizedQueryString, function (error, success) {
+      var formattedQuery = { formatedAndTokenizedQueryString: "" };
+      sessionValidator.validateSession(conn, json, formattedQuery, function (error, success) {
         //if the session is valid go ahead
         if (!error) {
-          logger.info(formatedAndTokenizedQueryString + ", inyectado");
+          logger.info(formattedQuery.formatedAndTokenizedQueryString + ", inyectado");
           connection.query("SELECT * FROM fruit",
             null,
             function (err, results) {
@@ -48,7 +48,7 @@ exports.index = function (req, res) {
         }
         else {
           conn.release(function (err) { });
-          logger.info(formatedAndTokenizedQueryString + ", no valido");
+          logger.info(formattedQuery.formatedAndTokenizedQueryString + ", no valido");
           return res.status(401).send(error);
         }
       });
@@ -66,7 +66,7 @@ exports.buyFruits = function (req, res) {
 
   connection.connection(function (err, conn) {
     if (!err) {
-      var formatedAndTokenizedQueryString = "";
+      var formattedQuery = { formatedAndTokenizedQueryString: "" };
       sessionValidator.validateSession(conn,json,formatedAndTokenizedQueryString,function (error, success) {
         //if not error
         if (!error) {
