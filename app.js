@@ -39,7 +39,7 @@ var fruitcontroller = require('./Api/fruit/fruit.controller.js');
 // router.post('/logout', controller.logout);
 
 
-app.post('/api/fruits', fruitcontroller.index);
+app.get('/api/fruits', fruitcontroller.index);
 app.get('/api/login', logincontroller.index);
 app.post('/api/buyFruits', fruitcontroller.buyFruits);
 app.post('/api/login/logout', logincontroller.logout);
